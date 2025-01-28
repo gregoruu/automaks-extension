@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Automaksu Kalkulaator",
+  "version": "1.0",
+  "description": "Automaksu kalkulaator numbrimärgi põhjal",
+  "permissions": [
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://apimsm.transpordiamet.ee/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_security_policy": {
+    "script-src": ["'self'", "https://apis.google.com"],
+    "object-src": "'none'"
+  }
+}
