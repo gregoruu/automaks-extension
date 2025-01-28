@@ -1,13 +1,18 @@
-document.getElementById("submitBtn").addEventListener("click", returnText);
+document.getElementById("submitBtn").addEventListener("click", maksud);
 
-function returnText(){
+
+
+function maksud(){
     let nrmark=document.getElementById("nrmark").value.trim();
-
-    let apiUrl=`https://apimsm.transpordiamet.ee/msm/regTasu/${nrmark}`;
     if (nrmark===""){
         return;
     }
-    fetch(apiUrl)
+    fetchRegMaks(nrmark);
+    fetchAastaMaks(nrmark);   
+}
+function fetchRegMaks(nrmark){
+    let regmaksApi=`https://apimsm.transpordiamet.ee/msm/regTasu/${nrmark}`;
+    fetch(regmaksApi)
         .then(response=>{
             if (response.ok === false) {
                 return;
@@ -30,11 +35,37 @@ function returnText(){
                 <p><strong>Baastasu:</strong> ${basePrice}</p>
                 <p><strong>Vanuse koefitsient:</strong> ${ageCoef}</p>
             `;
-            displayResult(result);
+            displayResult("regContainer",result);
         })
+}
+function fetchAastaMaks(nrmark){
+    let aastamaksApi=`https://avalik.emta.ee/msm-public/v1/vehicle-tax/calculate-by-reg-nr?regNr=${nrmark}&showRegFee=false`;
+    fetch(aastamaksApi)
+        .then(response=>{
+            if (response.ok === false) {
+                return;
+            }
+            return response.json();
+        })               
+            let totalPrice = `${data.yearlyFee.totalPrice} €`;
+            let co2Price = `${data.yearlyFee.co2Price} €`;
+            let massPrice = `${data.yearlyFee.massPrice} €`;
+            let basePrice = `${data.yearlyFee.basePrice} €`;
+        
+            let result = `
+                <p><strong>Kogusumma:</strong> ${totalPrice}</p>
+                <p><strong>CO₂-heitmete tasu:</strong> ${co2Price}</p>
+                <p><strong>Massi põhine tasu:</strong> ${massPrice}</p>
+                <p><strong>Baastasu:</strong> ${basePrice}</p>
+            `;
+            displayResult("aastaContainer", result);
+    }
 
-}
-function displayResult(content){
-    let resultContainer=document.getElementById("resultContainer");
-    resultContainer.innerHTML=content;
-}
+
+
+function displayResult(containerId, content) {
+    const resultContainer = document.getElementById(containerId);
+    if (resultContainer) {
+        resultContainer.innerHTML = content;
+        resultContainer.style.visibility = 'visible';
+    }}

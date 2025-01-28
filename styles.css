@@ -25,6 +25,7 @@ h1{
     padding:20px 50px;
     box-shadow: 5px 5px 40px rgba(0, 0, 0, 0.2);
     display: inline-block;
+    border: 2px solid rgba(0, 0, 0, 0.2);
 }
 input#nrmark {
     padding: 10px;
@@ -48,7 +49,7 @@ button#submitBtn:hover{
     transition-duration: 500ms;
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
 }
-.resultContainer{
+.regContainer{
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius:40px;
@@ -56,4 +57,5 @@ button#submitBtn:hover{
     box-shadow: 5px 5px 40px rgba(0, 0, 0, 0.2);
     display: inline-block;
     margin-top:20px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
 }
